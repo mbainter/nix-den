@@ -12,19 +12,19 @@
         unused = den.lib.take.unused __findFile;
         __findFile = unused den.lib.__findFile;
 
-        customEmacs.homeManager =
-          { pkgs, ... }:
-          {
-            programs.emacs.enable = true;
-            programs.emacs.package = pkgs.emacs30-nox;
-          };
+        # customEmacs.homeManager =
+        #   { pkgs, ... }:
+        #   {
+        #     programs.emacs.enable = true;
+        #     programs.emacs.package = pkgs.emacs30-nox;
+        #  };
       in
       [
         # from the aspect tree, bainter example is defined bellow
         den.aspects.bainter
         den.aspects.setHost
         # from the `opscraft` namespace.
-        opscraft.autologin
+        # opscraft.autologin
         # den included batteries that provide common configs.
         <den/primary-user> # mbainter is admin always.
         (<den/user-shell> "bash") # default user shell
@@ -58,7 +58,10 @@
   den.aspects.bainter =
     { user, ... }:
     {
-      nixos.users.users.${user.userName}.description = "Mark Bainter";
+      nixos.users.users.${user.userName} = {
+        initialPassword = "changeme";
+        description = "Mark Bainter";
+      };
     };
 
   den.aspects.setHost =

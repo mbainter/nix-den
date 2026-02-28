@@ -5,9 +5,16 @@
 
     # NixOS configuration for tyr.
     nixos =
-      { pkgs, ... }:
+      { inputs, pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.hello ];
+        nixpkgs.overlays = [
+          (final: _prev: {
+            unstable = import inputs.nixpkgs-unstable {
+              inherit (final) config system;
+            };
+          })
+        ];
       };
 
     # <host>.provides.<user>, via opscraft/routes.nix

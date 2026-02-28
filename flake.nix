@@ -7,9 +7,10 @@
   inputs = {
     darwin = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-darwin/nix-darwin";
+      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
     };
     den.url = "github:vic/den";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
@@ -18,11 +19,12 @@
     };
     home-manager = {
       inputs.nixpkgs.follows = "nixpkgs";
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
     };
     import-tree.url = "github:vic/import-tree";
-    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
 }
