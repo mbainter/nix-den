@@ -1,20 +1,21 @@
-{ den, ... }:
+{ den, opscraft, ... }:
 {
-  den.aspects.tyr = {
+  den.aspects.vidar = {
     includes = [
       den.aspects.disko
+      opscraft.brightness
     ];
 
-    # tyr host provides some home-manager defaults to its users.
+    # vidar host provides some home-manager defaults to its users.
     homeManager.programs.direnv.enable = true;
 
-    # NixOS configuration for tyr.
+    # NixOS configuration for vidar.
     nixos =
       { inputs, pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.hello ];
 
-        networking.hostId = "daea5664";
+        networking.hostId = "7210ac3f";
 
         nixpkgs.overlays = [
           (final: _prev: {

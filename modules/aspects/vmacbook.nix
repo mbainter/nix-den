@@ -3,7 +3,6 @@
   den.aspects.vmacbook = {
     includes = [
       den.aspects.determinate
-      den.aspects.mbainter     # Include user configuration
       # Other apple-specific aspects
     ];
 

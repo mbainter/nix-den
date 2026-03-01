@@ -50,6 +50,12 @@
       {
         nixos.programs.nh.enable = host.name == "tyr";
       };
+
+    provides.vidar =
+      { host, ... }:
+      {
+        nixos.programs.nh.enable = host.name == "vidar";
+      };
   };
 
   # This is a context-aware aspect, that emits configurations

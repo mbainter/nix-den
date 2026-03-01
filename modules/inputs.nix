@@ -35,6 +35,29 @@
     #  inputs.flake-compat.follows = "";
     #};
 
+    # Secure Boot
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Deployment
+    # deploy-rs = {
+    #   url = "github:serokell/deploy-rs";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.utils.follows = "flake-utils";
+    # };
+
+    # nixos-anywhere = {
+    #   url = "github:numtide/nixos-anywhere";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.disko.follows = "disko";
+    # };
+
+    # nixos-generators = {
+    #   url = "github:nix-community/nixos-generators";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
 }

@@ -11,6 +11,10 @@
     };
     den.url = "github:vic/den";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    disko = {
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/disko";
+    };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
@@ -22,6 +26,10 @@
       url = "github:nix-community/home-manager/release-25.11";
     };
     import-tree.url = "github:vic/import-tree";
+    lanzaboote = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/lanzaboote";
+    };
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-lib.follows = "nixpkgs";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";

@@ -11,12 +11,13 @@
     }:
     let
       checkCond = name: cond: pkgs.runCommandLocal name { } (if cond then "touch $out" else "");
-      apple = inputs.self.darwinConfigurations.apple.config;
+      vmacbook = inputs.self.darwinConfigurations.vmacbook.config;
       tyr = inputs.self.nixosConfigurations.tyr.config;
       mbainter-at-tyr = tyr.home-manager.users.mbainter;
       vmBuilds = !pkgs.stdenvNoCC.isLinux || builtins.pathExists (self'.packages.vm + "/bin/vm");
       tyrBuilds = !pkgs.stdenvNoCC.isLinux || builtins.pathExists (tyr.system.build.toplevel);
-      appleBuilds = !pkgs.stdenvNoCC.isDarwin || builtins.pathExists (apple.system.build.toplevel);
+      vidarBuilds = !pkgs.stdenvNoCC.isLinux || builtins.pathExists (tyr.system.build.toplevel);
+      vmacbookBuilds = !pkgs.stdenvNoCC.isDarwin || builtins.pathExists (vmacbook.system.build.toplevel);
     in
     {
       # checks."tyr builds" = checkCond "tyr-builds" tyrBuilds;
