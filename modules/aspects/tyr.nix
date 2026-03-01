@@ -1,8 +1,9 @@
-{ den, ... }:
+{ den, my, ... }:
 {
   den.aspects.tyr = {
     includes = [
       den.aspects.disko
+      my.networking
     ];
 
     # tyr host provides some home-manager defaults to its users.

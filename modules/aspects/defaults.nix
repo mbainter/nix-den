@@ -18,6 +18,7 @@
   den.default.includes = [
     # ${user}.provides.${host} and ${host}.provides.${user}
     <opscraft/routes>
+    <my/routes>
 
     # Automatically create the user on host.
     <den/define-user>
