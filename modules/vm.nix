@@ -4,7 +4,7 @@
 { inputs, opscraft, ... }:
 {
 
-  den.aspects.tyr.includes = [
+  den.aspects.test.includes = [
     opscraft.vm._.gui
     # opscraft.vm._.tui
   ];
@@ -15,7 +15,7 @@
       packages.vm = pkgs.writeShellApplication {
         name = "vm";
         text = ''
-          ${inputs.self.nixosConfigurations.tyr.config.system.build.vm}/bin/run-tyr-vm "$@"
+          ${inputs.self.nixosConfigurations.test.config.system.build.vm}/bin/run-test-vm "$@"
         '';
       };
     };
