@@ -14,6 +14,7 @@
       { inputs, pkgs, ... }:
       {
         environment.systemPackages = [ pkgs.hello ];
+        hardware.enableRedistributableFirmware = true;
 
         networking.hostId = "7210ac3f";
 

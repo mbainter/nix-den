@@ -15,6 +15,7 @@
       {
         environment.systemPackages = [ pkgs.hello ];
 
+        hardware.enableRedistributableFirmware = true;
         networking.hostId = "daea5664";
 
         nixpkgs.overlays = [
