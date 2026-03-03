@@ -3,6 +3,7 @@
   den.aspects.vidar = {
     includes = [
       den.aspects.disko
+      den.aspects.nix
       opscraft.brightness
     ];
 

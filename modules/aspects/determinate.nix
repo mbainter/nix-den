@@ -14,6 +14,13 @@
         enable = true;
 
         customSettings = {
+          # See https://jackson.dev/post/nix-reasonable-defaults/
+          connect-timeout = 5;
+          log-lines = 25;
+          min-free = 128000000; # 128MB
+          max-free = 1000000000; # 1GB
+          download-buffer-size = 524288000; # 500MB
+
           eval-cores = 0;
           lazy-trees = true;
           warn-dirty = false;
@@ -33,6 +40,7 @@
 
           substituters = [
             # high priority since it's almost always used
+            # "http://192.168.88.170:8180/darwin"
             "https://cache.nixos.org?priority=10"
             "https://install.determinate.systems"
             "https://nix-community.cachix.org"

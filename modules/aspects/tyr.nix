@@ -3,6 +3,7 @@
   den.aspects.tyr = {
     includes = [
       den.aspects.disko
+      den.aspects.nix
       my.networking
     ];
 
