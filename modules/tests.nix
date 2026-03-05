@@ -24,7 +24,7 @@
     {
       # checks."tyr builds" = checkCond "tyr-builds" tyrBuilds;
       # checks."test builds" = checkCond "test-builds" test;
-      # checks."apple builds" = checkCond "apple-builds" appleBuilds;
+      checks."vmacbook builds" = checkCond "vmacbook-builds" vmacbookBuilds;
       # checks."vm builds" = checkCond "vm-builds" vmBuilds;
 
       checks."mbainter enabled test nh" = checkCond "mbainter.provides.test" test.programs.nh.enable;

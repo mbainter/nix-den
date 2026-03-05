@@ -1,7 +1,7 @@
-{ inputs, den, lib, ... }:
+{ den, lib, inputs, ... }:
 {
-  flake-file.inputs.determinate = {
-    url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+  flake-file.inputs = {
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
   };
 
   # full determinate-nix configuration
@@ -9,6 +9,11 @@
     # Darwin-specific configuration
     darwin = { config, pkgs, ... }: {
       imports = [ inputs.determinate.darwinModules.default ];
+
+      #homebrew = {
+      #  enable = true;
+      #  enableBashIntegration = true;
+      #};
 
       determinateNix = {
         enable = true;
@@ -54,19 +59,20 @@
         };
 
         determinateNixd = {
-          garbageCollector.strategy = "optimized";
+          # garbageCollector.strategy = "optimized";
+          garbageCollector.strategy = "automatic";
         };
       };
 
-      nixpkgs.overlays = [
-        (final: _prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            inherit (final) config system;
-          };
-        })
-      ];
+      # nixpkgs.overlays = [
+      #   (final: _prev: {
+      #     unstable = import inputs.nixpkgs-unstable {
+      #       inherit (final) config system;
+      #     };
+      #   })
+      # ];
 
-      environment.systemPackages = with inputs.nix-darwin.packages.${pkgs.stdenv.hostPlatform.system}; [
+      environment.systemPackages = with inputs.darwin.packages.${pkgs.stdenv.hostPlatform.system}; [
         darwin-option
         darwin-rebuild
         darwin-version

@@ -11,7 +11,7 @@
 # non-existing aspects to be just ignored.
 #
 # Be sure to read: https://vic.github.io/den/dependencies.html
-# See usage at: defaults.nix, mbainter.nix, tyr.nix
+# See usage at: defaults.nix, mbainter.nix, vmacbook.nix
 #
 { den, ... }:
 {
