@@ -17,17 +17,25 @@
           experimental-features = [ "nix-command" "flakes" ];
           warn-dirty = false;
 
+          trusted-users = [
+            "root"
+            "mark.bainter"
+            "bainterm"
+          ];
+
           substituters = [
             "http://192.168.88.170:8180/nixos"
             "https://nix-community.cachix.org"
             "https://cache.garnix.io"
             "https://cache.nixos.org"
+            "https://devenv.cachix.org"
           ];    
 
           trusted-public-keys = [
              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
              "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
              "nixos:/Bjs+tZUAF5qgnTAKqyhvcCknR5amb7lzpV5uWHtiGQ="
+             "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
           ];
         };
 

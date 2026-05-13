@@ -25,15 +25,18 @@
         den.aspects.bainter
         den.aspects.setHost
         (<den/user-shell> "bash") # default user shell
+        <my/gpg>
+        <my/git>
+        (den.provides.unfree [ "1password-cli" "_1password-cli" ])
       ];
 
     # mark.bainter configures NixOS hosts it lives on.
     nixos =
       { pkgs, ... }:
       {
-        users.users."mark.bainter".packages = [ 
-          pkgs.vim 
-          pkgs.ripgrep
+        users.users."mark.bainter".packages = with pkgs; [
+          vim
+          ripgrep
         ];
       };
 
@@ -43,13 +46,61 @@
       {
         programs = {
           home-manager.enable = true;
+          bash = {
+            enable = true;
+            enableCompletion = true;
+            historySize = 10000;
+            historyFile = "$HOME/.bash_history";
+            historyFileSize = 100000;
+            historyControl = ["erasedups" "ignoreboth"];
+            historyIgnore = ["ls" "cd" "exit" "pwd"];
+
+            shellOptions = [
+              "histappend"
+              "checkwinsize"
+            ];
+
+            initExtra=''
+              # make less more friendly for non-text input files, see lesspipe(1)
+              [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+              # set a fancy prompt (non-color, unless we know we "want" color)
+              case "$TERM" in
+                  wezterm|xterm-color|*-256color) color_prompt=yes;;
+              esac
+              complete -C ${pkgs.terraform}/bin/terraform terraform
+            '';
+
+            profileExtra = ''
+              export BASH_SILENCE_DEPRECATION_WARNING="1"
+              # include local profile if it exists
+              [[ -f ~/.bash_profile.local ]] && . ~/.bash_profile.local
+            '';
+
+            bashrcExtra = ''
+              # include local bashrc if it exists
+              [[ -f ~/.bashrc.local ]] && . ~/.bashrc.local
+            '';
+          };
           gh = {
             enable = true;
+          };
+          starship = {
+            enable = true;
+            enableBashIntegration = true;
           };
         };
         home = {
           sessionPath = [ "$HOME/.local/bin" ];
-          packages = [ pkgs.htop pkgs.neovim ];
+          sessionVariables = {
+            BASH_SILENCE_DEPRECATION_WARNING = "1";
+          };
+          packages = with pkgs; [ htop devenv ];
+
+          shell.enableBashIntegration = true;
+          shellAliases = {
+            vim = "nvim";
+          };
         };
       };
 

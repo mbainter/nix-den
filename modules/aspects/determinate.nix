@@ -2,13 +2,25 @@
 {
   flake-file.inputs = {
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+    brew-api = {
+      url = "github:BatteredBunny/brew-api";
+      flake = false;
+    };
+
+    brew-nix = {
+      url = "github:BatteredBunny/brew-nix";
+      inputs.brew-api.follows = "brew-api";
+    };
   };
 
   # full determinate-nix configuration
   den.aspects.determinate = {
     # Darwin-specific configuration
     darwin = { config, pkgs, ... }: {
-      imports = [ inputs.determinate.darwinModules.default ];
+      imports = [ 
+        inputs.determinate.darwinModules.default
+	# inputs.brew-nix.darwinModules.default
+      ];
 
       #homebrew = {
       #  enable = true;

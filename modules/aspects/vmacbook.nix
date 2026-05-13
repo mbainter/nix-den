@@ -4,24 +4,38 @@
     includes = [
       den.aspects.determinate
       # Other apple-specific aspects
+      (den.provides.unfree [ "_1password-cli" "1password-cli" ])
     ];
 
     homeManager =
-    {
-      programs = {
-        direnv.enable = true;
-	home-manager.enable = true;
+      { pkgs, ... }:
+      {
+        nixpkgs.config.allowUnfree = true;
+        programs = {
+          direnv.enable = true;
+          home-manager.enable = true;
+        };
       };
-    };
 
     # Apple-specific darwin configuration
     darwin =
-      { pkgs, ... }:
+      { lib, pkgs, ... }:
       {
         environment = {
           systemPackages = with pkgs; [
             ripgrep
           ];
+
+	  shells = [
+            "${lib.getExe pkgs.bash}"
+	    "/bin/bash"
+	    "/bin/csh"
+	    "/bin/dash"
+	    "/bin/ksh"
+	    "/bin/sh"
+	    "/bin/tcsh"
+	    "/bin/zsh"
+	  ];
         };
 
 	homebrew = {
@@ -32,11 +46,50 @@
             cleanup = "zap";
           };
 
-	  brews = [];
+	  brews = [
+            "actionlint"
+	    "archon"
+	    "awscli"
+	    "aws-sso-cli"
+	    "direnv"
+	    "eksctl"
+	    "eks-node-viewer"
+	    "fd"
+	    "fzf"
+	    "gh"
+	    "github-mcp-server"
+	    "jira-cli"
+	    "jujutsu"
+	    "just"
+            "neovim"
+	    "nono"
+	    "openspec"
+            "powershell"
+	    "pi-coding-agent"
+	    "podman"
+	    "podman-tui"
+	    "podman-compose"
+	    "pyenv-virtualenv"
+	    "python"
+	    "ruff"
+            "shellcheck"
+	    "supabase"
+	    "supabase-mcp-server"
+	    "tenv"
+	  ];
 
           casks = [
+	    "amazon-workspaces"
+	    "blackhole-2ch"
+	    "cloudflare-warp"
+	    "deskflow"
+	    "ghostty"
+	    "iterm2"
+	    "keycastr"
+	    "obs"
             "obsidian"
             "podman-desktop"
+	    # "session-manager-plugin" # not signed, needs more sudo work to support
             "wezterm"
             "yubico-authenticator"
           ];
@@ -52,10 +105,15 @@
           # };
 
           taps = [
+	    "aws/tap"
+	    "coleam00/archon"
+	    "deskflow/tap"
             "neovim/neovim"
             "nrlquaker/createzap"
           ];
         };
+
+        nixpkgs.config.allowUnfree = true;
 
         system = {
           defaults = {
@@ -84,9 +142,9 @@
               Sound = true;
             };
             dock = {
-              wvous-tl-corner = 6;
-              wvous-tr-corner = 6;
-              wvous-br-corner = 10;
+              wvous-tl-corner = 1;
+              wvous-tr-corner = 1;
+              wvous-br-corner = 1;
               wvous-bl-corner = 13;
             };
             finder = {
@@ -120,10 +178,14 @@
 
     # <host>.provides.<user>, via opscraft/routes.nix
     provides."mark.bainter" =
-      { user, ... }:
+      { user, pkgs, ... }:
       {
-        homeManager.programs.zoxide = {
-          enable = user.name == "mark.bainter";
+        homeManager = 
+	      {
+          users.users."mark.bainter".shell = pkgs.bashInteractive;
+        	programs.zoxide = {
+            enable = user.name == "mark.bainter";
+          };
         };
 
         # FIXME: condition this on shell
