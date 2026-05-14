@@ -68,7 +68,6 @@
               case "$TERM" in
                   wezterm|xterm-color|*-256color) color_prompt=yes;;
               esac
-              complete -C ${pkgs.terraform}/bin/terraform terraform
             '';
 
             profileExtra = ''
@@ -95,7 +94,7 @@
           sessionVariables = {
             BASH_SILENCE_DEPRECATION_WARNING = "1";
           };
-          packages = with pkgs; [ htop devenv ];
+          packages = with pkgs; [ htop ];
 
           shell.enableBashIntegration = true;
           shellAliases = {

@@ -24,7 +24,8 @@
         environment = {
           systemPackages = with pkgs; [
             ripgrep
-          ];
+	    unstable.devenv
+	  ];
 
 	  shells = [
             "${lib.getExe pkgs.bash}"
