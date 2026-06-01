@@ -1,4 +1,4 @@
-{ den, opscraft, my, ... }:
+{ den, opscraft, my, __findFile, ... }:
 {
   # Work User
   den.aspects."mark.bainter" = {
@@ -93,7 +93,7 @@
     # <user>.policies.<name>, aspect-included policy
     # Delivers NixOS config to the host (cross-scope via policy.provide).
     policies.to-vmacbook =
-      { host, user, ... }:
+      { host, user, lib, ... }:
       lib.optional (host.name == "vmacbook") (
         den.lib.policy.provide {
           class = "nixos";

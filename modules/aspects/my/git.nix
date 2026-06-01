@@ -6,6 +6,11 @@
       ghbin = lib.getExe pkgs.gh;
     in
     {
+      home.packages = [
+        pkgs.rs-git-fsmonitor
+	pkgs.watchman
+      ];
+
       programs = {
         jujutsu.enable = true;
         jjui.enable = true;

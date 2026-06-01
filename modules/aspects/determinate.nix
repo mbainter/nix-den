@@ -50,6 +50,7 @@
 
           extra-experimental-features = [
             "build-time-fetch-tree" # Enables build-time flake inputs
+	    "external-builders"
             "parallel-eval" # Enables parallel evaluation
           ];
 
@@ -71,6 +72,7 @@
         };
 
         determinateNixd = {
+	  builder.state = "enabled";
           # garbageCollector.strategy = "optimized";
           garbageCollector.strategy = "automatic";
         };

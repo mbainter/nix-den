@@ -1,4 +1,4 @@
-{ den, opscraft, my, ... }:
+{ den, __findFile, opscraft, my, ... }:
 {
   den.hosts.aarch64-darwin.vmacbook = {
     hostName = "MBainter1225m";
@@ -18,6 +18,12 @@
         programs = {
           direnv.enable = true;
         };
+
+	manual = {
+	  html.enable = false;
+	  json.enable = false;
+	  manpages.enable = false;
+	};
       };
 
     # Apple-specific darwin configuration
@@ -119,7 +125,7 @@
 
     # <host>.policies.<name>, aspect-included policy
     policies.to-markbainter =
-      { host, user, ... }:
+      { host, user, lib, ... }:
       lib.optional (user.name == "mark.bainter") (
         den.lib.policy.include {
           # NOTE: this is just to demonstrate how I can configure something explicitly for my user on this host only

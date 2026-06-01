@@ -1,4 +1,4 @@
-{ den, opscraft, my, ... }:
+{ den, opscraft, my, inputs, ... }:
 {
   den.hosts.x86_64-linux.tyr = {
     description = "NixOS GMKtek Desktop";
@@ -15,7 +15,7 @@
 
     # NixOS configuration for tyr.
     nixos =
-      { inputs, pkgs, ... }:
+      { pkgs, ... }:
       {
         imports = with inputs.nixos-hardware.nixosModules; [
           common-cpu-amd
@@ -44,7 +44,7 @@
 
     # <host>.provides.<user>, via opscraft/routes.nix
     policies.to-mbainter =
-      { host, user, ... }:
+      { host, user, lib, ... }:
       lib.optional (user.name == "mbainter") (
         den.lib.policy.include {
 	  # NOTE: this is just to demonstrate how I can configure something explicitly for my user on this host only
@@ -59,13 +59,13 @@
           };
         }
       );
-  };
 
-  includes = [
-    den.aspects.disko
-    den.aspects.nix
-    my.networking
-    (den.batteries.vm-autologin "mbainter")
-    den.aspects.tyr.policies.to-mbainter
-  ];
+    includes = [
+      den.aspects.disko
+      den.aspects.nix
+      my.networking
+      (den.batteries.vm-autologin "mbainter")
+      den.aspects.tyr.policies.to-mbainter
+    ];
+  };
 }

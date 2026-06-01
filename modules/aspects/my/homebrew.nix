@@ -12,7 +12,7 @@
     };
   };
 
-  darwin =
+  my.homebrew.darwin =
     { config, lib, pkgs, ... }:
     {
       homebrew = {
@@ -27,5 +27,6 @@
           appdir = lib.mkDefault "~/Applications";
           require_sha = lib.mkDefault true;
         };
+      };
     };
 }

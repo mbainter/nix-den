@@ -35,7 +35,7 @@
 
     # <host>.provides.<user>, via opscraft/routes.nix
     policies.to-mbainter =
-      { host, user, ... }:
+      { host, user, lib, ... }:
       lib.optional (user.name == "mbainter") (
         den.lib.policy.include {
 	  # NOTE: this is just to demonstrate how I can configure something explicitly for my user on this host only
@@ -50,13 +50,13 @@
           };
         }
       );
-  };
 
-  includes = [
-    den.aspects.disko
-    den.aspects.nix
-    opscraft.brightness
-    (den.batteries.vm-autologin "mbainter")
-    den.aspects.vidar.policies.to-mbainter
-  ];
+    includes = [
+      den.aspects.disko
+      den.aspects.nix
+      opscraft.brightness
+      (den.batteries.vm-autologin "mbainter")
+      den.aspects.vidar.policies.to-mbainter
+    ];
+  };
 }

@@ -17,9 +17,6 @@
       # Automatically create the user on host.
       <den/define-user>
   
-      # forward settings from the user class to users.users.<username>
-      <den/os-user>
-  
       # Disable booting when running on CI on all NixOS hosts.
       (if config ? _module.args.CI then <opscraft/ci-no-boot> else { })
   
@@ -104,7 +101,7 @@
       };
 
     nixos =
-      { pkgs, lib, ... }:
+      { pkgs, lib, inputs, ... }:
       {
         boot.initrd.systemd.enable = true;
 
@@ -120,7 +117,7 @@
 	time.timeZone = "America/Chicago";
 
 	home-manager = {
-	  userUserPackages = true;
+	  useUserPackages = true;
 	  useGlobalPkgs = true;
 	};
 	 
@@ -139,4 +136,5 @@
       programs.home-manager.enable = true;
       home.stateVersion = "25.05";
     };
+  };
 }
