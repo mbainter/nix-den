@@ -7,56 +7,46 @@
 #
 # For our template, we enable home-manager and nix-darwin by default, but
 # you are free to remove them if not being used by you.
-{ ... }:
+{ lib, ... }:
 {
 
   flake-file.inputs = {
-   home-manager = {
-      url = "https://flakehub.com/f/nix-community/home-manager/0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:nixos/nixpkgs/release-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+       url = "github:nix-community/home-manager/release-26-05";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
 
-    darwin = {
-      url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+     darwin = {
+       url = "github:nix-darwin/nix-darwin-26.05";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
 
-    nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0";
-    nixpkgs-unstable.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+     # NOTE: for switching to determinate nix for all sources:
+     # nixpkgs.url = lib.mkForce "https://flakehub.com/f/NixOS/nixpkgs/0";
+     # nixpkgs-unstable.url = lib.mkForce "https://flakehub.com/f/NixOS/nixpkgs/0.1";
 
-    ## these stable inputs are for wsl
-    #nixpkgs-stable.url = "github:nixos/nixpkgs/release-25.05";
-    #home-manager-stable.url = "github:nix-community/home-manager/release-25.05";
-    #home-manager-stable.inputs.nixpkgs.follows = "nixpkgs-stable";
+     # home-manager = {
+     #   url = "https://flakehub.com/f/nix-community/home-manager/0";
+     #   inputs.nixpkgs.follows = "nixpkgs";
+     # };
 
-    #nixos-wsl = {
-    #  url = "github:nix-community/nixos-wsl";
-    #  inputs.nixpkgs.follows = "nixpkgs-stable";
-    #  inputs.flake-compat.follows = "";
-    #};
+     # darwin = {
+     #   url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
+     #   inputs.nixpkgs.follows = "nixpkgs";
+     # };
 
-    # Secure Boot
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+     #nixos-wsl = {
+     #  url = "github:nix-community/nixos-wsl";
+     #  inputs.nixpkgs.follows = "nixpkgs";
+     #  inputs.flake-compat.follows = "";
+     #};
 
-    # Deployment
-    # deploy-rs = {
-    #   url = "github:serokell/deploy-rs";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.utils.follows = "flake-utils";
-    # };
-
-    # nixos-anywhere = {
-    #   url = "github:numtide/nixos-anywhere";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.disko.follows = "disko";
-    # };
-
-    # nixos-generators = {
-    #   url = "github:nix-community/nixos-generators";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+     # Secure Boot
+     lanzaboote = {
+       url = "github:nix-community/lanzaboote";
+       inputs.nixpkgs.follows = "nixpkgs";
+     };
   };
 }
