@@ -1,6 +1,7 @@
 { den, opscraft, my, ... }:
 {
   den.hosts.aarch64-darwin.vmacbook = {
+    hostName = "MBainter1225m";
     description = "Nix-Darwin Apple Macbook Pro provided by Validity";
     users."mark.bainter" = { 
       description = "Mark Bainter";

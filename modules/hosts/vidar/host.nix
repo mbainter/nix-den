@@ -3,7 +3,8 @@
   den.hosts.x86_64-linux.vidar = {
     description = "NixOS Framework Laptop";
     isLaptop = true;
-    users."mbainter" = { 
+    defaultBrightness = "80%";
+    users.mbainter = { 
       description = "Mark Bainter";
       userNameNick = "mbainter";
       userNameReal = "Mark Bainter";
