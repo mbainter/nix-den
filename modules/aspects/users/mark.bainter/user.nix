@@ -1,4 +1,4 @@
-{ den, opscraft, ... }:
+{ den, opscraft, my, ... }:
 {
   # Work User
   den.aspects."mark.bainter" = {
@@ -7,22 +7,15 @@
     # For small, private one-shot aspects, use let-bindings like here.
     # for more complex or re-usable ones, define on their own modules,
     # as part of any aspect-subtree.
-    includes =
-      let
-        # hack for nixf linter to keep findFile :/
-        unused = den.lib.take.unused __findFile;
-        __findFile = unused den.lib.__findFile;
-      in
-      [
-        # from the aspect tree, bainter example is defined bellow
-        den.aspects.bainter
-        den.aspects.setHost
-        (<den/user-shell> "bash") # default user shell
-        <my/gpg>
-        <my/git>
-        (den.provides.unfree [ "1password-cli" "_1password-cli" ])
-        den.aspects."mark.bainter".policies.to-vmacbook
-      ];
+    includes = [
+      <den/primary-user>
+      (<den/user-shell> "bash") # default user shell
+      <my/gpg>
+      <my/git>
+      (den.provides.unfree [ "1password-cli" "_1password-cli" ])
+      den.aspects.bainter
+      den.aspects."mark.bainter".policies.to-vmacbook
+    ];
 
     # mark.bainter configures NixOS hosts it lives on.
     nixos =
@@ -120,10 +113,10 @@
       };
     };
 
-  den.aspects.setHost =
-    { host, ... }:
-    {
-      networking.hostName = host.hostName;
-      # networking.hostName = "MBainter1225m";
-    };
+  #den.aspects.setHost =
+  #  { host, ... }:
+  #  {
+  #    networking.hostName = host.hostName;
+  #    # networking.hostName = "MBainter1225m";
+  #  };
 }

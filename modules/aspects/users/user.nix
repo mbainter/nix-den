@@ -1,0 +1,6 @@
+{
+  den.schema.user =
+  { lib, ... }:
+  {
+  };
+}
