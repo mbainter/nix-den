@@ -16,12 +16,14 @@
 
   # These are functions that produce configs
   den.default.includes = [
-    # ${user}.provides.${host} and ${host}.provides.${user}
-    <opscraft/routes>
-    <my/routes>
+    # Automatically set hostname
+    <den/hostname>
 
     # Automatically create the user on host.
     <den/define-user>
+
+    # forward settings from the user class to users.users.<username>
+    <den/os-user>
 
     # Disable booting when running on CI on all NixOS hosts.
     (if config ? _module.args.CI then <opscraft/ci-no-boot> else { })
@@ -31,15 +33,13 @@
     # you could be duplicating config values. For example:
     #
     #  # This will append 42 into foo option for the {host} and for EVERY {host,user}
-    #  ({ host, ... }: { nixos.foo = [ 42 ]; }) # DO-NOT-DO-THIS.
+    #     ({ host, ... }: { nixos.foo = [ 42 ]; }) # DO-NOT-DO-THIS.
     #
-    #  # Instead try to be explicit if a function is intended for ONLY { host }.
-    (den.lib.take.exactly (
-      { host }:
-      {
-        nixos.networking.hostName = host.hostName;
-      }
-    ))
-
+    #  # Instead try to be explicit if a function is intended for ONLY { host }
+    #     den.lib.perHost ({ host }: { nixos.foo = [ 42 ]; })
+    #  # Or for { host, user } ONLY:
+    #     den.lib.perUser ({ host, user }: { nixos.foo = [ 42 ]; })
+    #  # Or for standalone homes ({ home }) ONLY:
+    #     den.lib.perHome ({ home }: { homeManager.foo = [ 42 ]; })
   ];
 }

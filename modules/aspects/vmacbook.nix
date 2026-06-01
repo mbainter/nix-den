@@ -172,28 +172,27 @@
             swapLeftCtrlAndFn = false;
           };
 
-          nixpkgsRelease = "25.11";
+          nixpkgsRelease = "26.05";
           primaryUser = "mark.bainter";
         }; # system
       };
 
-    # <host>.provides.<user>, via opscraft/routes.nix
-    provides."mark.bainter" =
-      { user, pkgs, ... }:
-      {
-        homeManager = 
-	      {
-          users.users."mark.bainter".shell = pkgs.bashInteractive;
-        	programs.zoxide = {
-            enable = user.name == "mark.bainter";
-          };
-        };
-
-        # FIXME: condition this on shell
-        enableBashIntegration = true;
-        options = [
-          "--cmd cd" #replace cd with z and zi (via cdi)
-        ];
-      };
+    # <host>.policies.<name>, aspect-included policy
+    policies.to-markbainter =
+      { host, user, ... }:
+      lib.optional (user.name == "mark.bainter") (
+        den.lib.policy.include {
+	  # NOTE: this is just to demonstrate how I can configure something explicitly for my user on this host only
+	  # This should be moved into my generic user.
+          homeManager.programs.zoxide = {
+	    enable = user.name == "mark.bainter";
+	    enableBashIntegration = true;
+	    options = [
+              "--cmd cd" #replace cd with z and zi (via cdi)
+	    ];
+	  };
+        }
+      );
+    includes = [ den.aspects.vmacbook.policies.to-markbainter ];
   };
 }

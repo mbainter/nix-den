@@ -1,10 +1,10 @@
 # enables `nix run .#vm`. it is very useful to have a VM
 # you can edit your config and launch the VM to test stuff
 # instead of having to reboot each time.
-{ inputs, opscraft, ... }:
+{ inputs, opscraft, my, ... }:
 {
 
-  den.aspects.test.includes = [
+  den.aspects.tyr.includes = [
     opscraft.vm._.gui
     # opscraft.vm._.tui
   ];
@@ -15,7 +15,7 @@
       packages.vm = pkgs.writeShellApplication {
         name = "vm";
         text = ''
-          ${inputs.self.nixosConfigurations.test.config.system.build.vm}/bin/run-test-vm "$@"
+          ${inputs.self.nixosConfigurations.tyr.config.system.build.vm}/bin/run-tyr-vm "$@"
         '';
       };
     };

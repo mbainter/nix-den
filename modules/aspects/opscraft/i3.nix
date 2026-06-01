@@ -2,11 +2,6 @@
   opscraft.i3.nixos =
     { lib, pkgs, config, ... }:
     {
-      # FIXME: do I still need this?
-      # environment = {
-      #   pathsToLink = ["/libexec"];
-      # };
-
       programs = {
         seahorse.enable = true;
       };

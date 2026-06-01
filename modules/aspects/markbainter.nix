@@ -12,13 +12,6 @@
         # hack for nixf linter to keep findFile :/
         unused = den.lib.take.unused __findFile;
         __findFile = unused den.lib.__findFile;
-
-        # customEmacs.homeManager =
-        #   { pkgs, ... }:
-        #   {
-        #     programs.emacs.enable = true;
-        #     programs.emacs.package = pkgs.emacs30-nox;
-        #  };
       in
       [
         # from the aspect tree, bainter example is defined bellow
@@ -28,6 +21,7 @@
         <my/gpg>
         <my/git>
         (den.provides.unfree [ "1password-cli" "_1password-cli" ])
+        den.aspects."mark.bainter".policies.to-vmacbook
       ];
 
     # mark.bainter configures NixOS hosts it lives on.
@@ -103,17 +97,21 @@
         };
       };
 
-    # <user>.provides.<host>, via opscraft/routes.nix
-    provides.vmacbook =
-      { host, ... }:
-      {
-        nixos.programs.nh.enable = host.name == "vmacbook";
-      };
+    # <user>.policies.<name>, aspect-included policy
+    # Delivers NixOS config to the host (cross-scope via policy.provide).
+    policies.to-vmacbook =
+      { host, user, ... }:
+      lib.optional (host.name == "vmacbook") (
+        den.lib.policy.provide {
+          class = "nixos";
+          module.programs.nh.enable = true;
+        }
+      );
   };
 
   # This is a context-aware aspect, that emits configurations
   # **anytime** at least the `user` data is in context.
-  # read more at https://vic.github.io/den/context-aware.html
+  # read more at https://den.denful.dev/explanation/parametric/
   den.aspects.bainter =
     { user, ... }:
     {
@@ -125,7 +123,7 @@
   den.aspects.setHost =
     { host, ... }:
     {
-      # networking.hostName = host.hostName;
-      networking.hostName = "MBainter1225m";
+      networking.hostName = host.hostName;
+      # networking.hostName = "MBainter1225m";
     };
 }

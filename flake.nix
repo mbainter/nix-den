@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       url = "https://flakehub.com/f/nix-darwin/nix-darwin/0";
     };
-    den.url = "github:vic/den/v0.14.0";
+    den.url = "github:denful/den/latest";
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
     disko = {
       inputs.nixpkgs.follows = "nixpkgs-unstable";
