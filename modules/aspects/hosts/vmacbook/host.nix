@@ -1,12 +1,15 @@
-{ den, ... }:
+{ den, opscraft, my, ... }:
 {
-  den.aspects.vmacbook = {
-    includes = [
-      den.aspects.determinate
-      # Other apple-specific aspects
-      (den.provides.unfree [ "_1password-cli" "1password-cli" ])
-    ];
+  den.hosts.aarch64-darwin.vmacbook = {
+    description = "Nix-Darwin Apple Macbook Pro provided by Validity";
+    users."mark.bainter" = { 
+      description = "Mark Bainter";
+      userNameNick = "mark.bainter";
+      userNameReal = "Mark Bainter";
+    };
+  };
 
+  den.aspects.vmacbook = {
     homeManager =
       { pkgs, ... }:
       {
@@ -193,6 +196,12 @@
 	  };
         }
       );
-    includes = [ den.aspects.vmacbook.policies.to-markbainter ];
+
+    includes = [
+      den.aspects.determinate
+      # Other apple-specific aspects
+      (den.provides.unfree [ "_1password-cli" "1password-cli" ])
+      den.aspects.vmacbook.policies.to-markbainter
+    ];
   };
 }
