@@ -11,7 +11,7 @@
     darwin = { config, pkgs, ... }: {
       imports = [ 
         inputs.determinate.darwinModules.default
-	# inputs.brew-nix.darwinModules.default
+        # inputs.brew-nix.darwinModules.default
       ];
 
       #homebrew = {
@@ -42,15 +42,15 @@
             "flakes"
           ];
 
-	  trusted-users = [
-	    "root"
-	    "mark.bainter"
-	    "bainterm"
-	  ];
+          trusted-users = [
+            "root"
+            "mark.bainter"
+            "bainterm"
+          ];
 
           extra-experimental-features = [
             "build-time-fetch-tree" # Enables build-time flake inputs
-	    "external-builders"
+            "external-builders"
             "parallel-eval" # Enables parallel evaluation
           ];
 
@@ -61,18 +61,20 @@
             "https://install.determinate.systems"
             "https://nix-community.cachix.org"
             "https://devenv.cachix.org"
+            "https://microvm.cachix.org"
           ];
 
           trusted-public-keys = [
             "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
             "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM"
             "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-             "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+            "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+            "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
           ];
         };
 
         determinateNixd = {
-	  builder.state = "enabled";
+          builder.state = "enabled";
           # garbageCollector.strategy = "optimized";
           garbageCollector.strategy = "automatic";
         };

@@ -31,7 +31,7 @@
       { lib, pkgs, ... }:
       {
         environment = {
-          systemPackages = with pkgs; [
+          systemPackages = with pkgs; [jj
             ripgrep
             unstable.devenv
           ];
@@ -143,6 +143,7 @@
     includes = [
       den.aspects.determinate
       <my/homebrew>
+      <opscraft/microvm>
       (den.provides.unfree [ "_1password-cli" "1password-cli" ])
       den.aspects.vmacbook.policies.to-markbainter
     ];
